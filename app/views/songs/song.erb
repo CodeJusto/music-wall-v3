@@ -16,6 +16,11 @@
   </div>
    <h1 class="text-center"><a href="<%= @song.url %>"><%= @song.title %></a><small> by <%= @song.author %></small></h1>
 
+  <% if @song.reviews.exists? %>
+    <br>
+    <h3 class="text-center">Average score: <%= average = @song.reviews.map {|review| review.score}; (average.inject(:+)/average.size).round(2) %></h3>
+  <% end %>
+
    <div class="text-center">
     <% unless session[:email].nil? %>
       <h2>Leave a review?</h2>
@@ -53,7 +58,7 @@
             </form>
           <% end %>
         </div>
-        <div class="col-sm-3"><h1><%= review.score %>/5</h1></div>
+        <div class="col-sm-6"><h1><%= review.score %>/5</h1></div>
       </div>
     </div>
       <% end %>

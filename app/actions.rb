@@ -15,7 +15,7 @@ post '/login' do
     @error_message = "Either your email or your password is incorrect!"
     erb :index
   else
-    session[:email] = @user.email
+    session[:key] = @user.rand_key
     erb :index
   end
 end
@@ -56,11 +56,7 @@ end
 
 get '/songs/:id' do
   @song = Song.find params[:id]
-  # if Review.exists? song_id: params[:id]
   @reviews = Review.where song_id: params[:id]
-  # else
-    # @review = ["No reviews yet"]
-  # end
   erb :'songs/song'
 end
 
@@ -70,9 +66,12 @@ get '/register' do
 end
 
 post '/register' do
+  o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+  @string = (0...50).map { o[rand(o.length)] }.join
   @user = User.new(
     email: params[:email],
-    password: params[:password]
+    password: params[:password],
+    rand_key: @string
     )
   if @user.save
     redirect '/'
@@ -101,7 +100,6 @@ end
 
 post '/delete_review' do
   @review_id = params[:review_id]
-  # binding.pry
   Review.where(id: @review_id)[0].destroy
   redirect '/songs'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517164604) do
+ActiveRecord::Schema.define(version: 20160517223540) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160517164604) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "rand_key"
   end
 
   create_table "votes", force: :cascade do |t|

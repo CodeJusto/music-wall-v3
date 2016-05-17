@@ -28,7 +28,7 @@
             <li><a href="/songs/new"><h5>Submit</h5></a></li>
             <li> <a href="/register"><h5>Register</h5></a></li>
           </ul>
-           <% if session[:email].nil? %>  
+           <% if session[:key].nil? %>  
           <div class="navbar-form navbar-right">
             <form class="form-signin" method="post" action="/login">
                 <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
@@ -41,6 +41,7 @@
       </nav>
               <% else %>
           <div class="navbar-form navbar-right">
+            <% session[:email] = User.where(rand_key: session[:rand_key])[0].email %>
             <span class="nav navbar-nav"><strong>Welcome <%="#{session[:email]}!"%></strong></span>
             <p><a href="/logout">Logout</a></p>
           </div>

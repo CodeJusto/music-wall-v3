@@ -11,10 +11,40 @@
   margin-bottom: 50px;
 }
 .theatre {
-  background-color: #000000
+  background-color: #000000;
+  padding-top:25px;
+  padding-bottom:25px;
 }
 
 .review-block {
   margin-top: 20px;
   text-align: left;
 }
+.reg-title {
+  margin-bottom: 50px;
+}
+.reg-img {
+  background-image: url("../edmcrowd1.jpg");
+  height:500px;
+ }
+
+ .homepage-img {
+  background-image: url("../Gramophone.jpg");
+  width: 269px;
+  height: 313px;
+  margin-bottom: 50px;
+  text-align: center;
+  margin: auto;
+ }
+
+ .extra-space {
+  margin-bottom: 50px;
+ }
+
+ .view-img {
+  position: fixed;
+  background-image: url("../headphones.png");
+  margin: auto;
+  height: 300px;
+  width:300px;
+ }
