@@ -1,0 +1,65 @@
+
+<div class="container">
+  <% if @review && @review.errors.any? %>
+  <div>
+    <strong>Some issues with your review, please fix them:</strong>
+    <ul>
+      <% @review.errors.full_messages.each do |review| %>
+        <li><%= review %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <div class="text-center theatre">
+    <iframe width="640" height="360" src="https://www.youtube.com/embed/<%= @song.url.scan(/\=\w*&/)[0].split("")[1..-2].join("") %>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+  </div>
+   <h1 class="text-center"><a href="<%= @song.url %>"><%= @song.title %></a><small> by <%= @song.author %></small></h1>
+
+   <div class="text-center">
+    <% unless session[:email].nil? %>
+      <h2>Leave a review?</h2>
+      <form class="form-horizontal" method="post" action="/review">
+        <input type="hidden" name="song_id" value="<%= @song.id %>">
+        <textarea value="Review" name ="review" class="span6" cols="50" rows="3" placeholder="What did you like or dislike about this song?" required></textarea>
+        <br>
+        <div class="row">
+          <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <select class="form-control" name="score">
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+              </select>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
+        <br>
+        <input class="btn btn-lg btn-primary" type="submit" value="Review">
+      </form>
+      <% @reviews.each do |review| %>
+      <div class="row">
+        <div class="col-sm-3"></div>
+      <div class="col-sm-7">
+        <div class="col-sm-6 review-block">
+          <p><strong><%= review.user.email %> says...</strong></h3>
+          <p><%= review.review %></p>
+          <% if session[:id] == review.user_id %>
+            <form method="post" action="/delete_review">
+              <input type="hidden" name="review_id" value="<%= review.id %>">
+              <input class="btn btn-primary" type="submit" value="Delete review">
+            </form>
+          <% end %>
+        </div>
+        <div class="col-sm-3"><h1><%= review.score %>/5</h1></div>
+      </div>
+    </div>
+      <% end %>
+
+    <% else %>
+    <h4>Want to leave a review? <a href="/register">Register here.</a></h4>
+    <% end %>
+  </div>
+</div>

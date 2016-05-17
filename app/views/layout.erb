@@ -1,0 +1,57 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    normalize.css removes cross-browser differences in defaults, e.g.,
+    differences in how form elements appear between Firefox and IE
+    See: http://necolas.github.com/normalize.css/
+  -->
+  <!-- <link rel="stylesheet" href="/stylesheets/normalize.css"> -->
+  <!--
+    application.css is where you put your styles
+  -->
+  <link rel="stylesheet" href="/stylesheets/application.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/javascript/application.js"></script>
+
+  <title></title>
+</head>
+<body>
+ 
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <ul class="nav navbar-nav">
+            <li><a href="/"><h5>Home</h5></a></li>
+            <li><a href="/songs"><h5>View</h5></a></li>
+            <li><a href="/songs/new"><h5>Submit</h5></a></li>
+            <li> <a href="/register"><h5>Register</h5></a></li>
+          </ul>
+           <% if session[:email].nil? %>  
+          <div class="navbar-form navbar-right">
+            <form class="form-signin" method="post" action="/login">
+                <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <input class="input" type="submit" value="Login">
+              </form>
+
+          </div>
+        </div>
+      </nav>
+              <% else %>
+          <div class="navbar-form navbar-right">
+            <span class="nav navbar-nav"><strong>Welcome <%="#{session[:email]}!"%></strong></span>
+            <p><a href="/logout">Logout</a></p>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+    <% unless @error_message.nil? %>
+      <%= @error_message %>
+    <% end %>
+  <%= yield %>
+  <div class="footer">
+  </div>
+</body>
+</html>
